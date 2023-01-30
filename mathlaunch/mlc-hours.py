@@ -77,8 +77,11 @@ for id in non_intersection:
     non_ml.append(ids_mlc[id])
 non_ml.sort()
 
-# Uncomment to see list of students who did hours but are not in ML:
-#print(non_ml)
+# Print list of students who did hours but are not in ML:
+print("Non-ML students who logged time in the MLC:")
+for key, val in ids_mlc.items():
+    if val in non_ml:
+        print(str(val) + " (" + str(key) + ")")
 
 # Write output dataframe to csv
 outfile = "wk" + str(wk_mlc).zfill(2) + "-mlc-total.csv"
