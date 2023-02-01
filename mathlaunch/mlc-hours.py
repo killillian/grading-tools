@@ -16,9 +16,9 @@ import numpy as np
 #  Uncomment to get user input instead of hard-coding file names:
 #infile_roster = input("Enter name of Webcourses roster file:  ")
 #infile_mlc = input("Enter name of MLC hours file:  ")
-#  Comment out if using user input instead:
 wk_roster = 4
-wk_mlc = 2
+wk_mlc = 3
+#  Comment out if using user input instead:
 infile_roster = "wk" + str(wk_roster).zfill(2) + "-roster.csv"
 infile_mlc = "wk" + str(wk_mlc).zfill(2) + "-mlc-raw.csv"
 
@@ -72,16 +72,15 @@ df[total_col] = df.apply(insert_hours, axis=1)
 # Make list of students who did hours but are not in ML
 non_intersection = set(df[df[total_col] > 0]["UCF ID"]) ^ \
     set(hours.keys())
-non_ml = []
+non_ml = {}
 for id in non_intersection:
-    non_ml.append(ids_mlc[id])
-non_ml.sort()
+    non_ml[ids_mlc[id]] = id
 
 # Print list of students who did hours but are not in ML:
 print("Non-ML students who logged time in the MLC:")
-for key, val in ids_mlc.items():
-    if val in non_ml:
-        print(str(val) + " (" + str(key) + ")")
+for name in sorted(non_ml.keys()):
+    if name in ids_mlc.values():
+        print(name + " (" + str(non_ml[name]) + ")")
 
 # Write output dataframe to csv
 outfile = "wk" + str(wk_mlc).zfill(2) + "-mlc-total.csv"
