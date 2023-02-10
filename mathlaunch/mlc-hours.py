@@ -86,6 +86,8 @@ if len(non_ml) > 0:
             print(name + \
                 " (" + str(non_ml[name]) + "):  " + \
                 str(time) + " min")
+else:
+    print("No non-ML students logged any hours in the Center (:")
 
 # Write output dataframe to csv
 outfile = "wk" + str(wk_mlc).zfill(2) + "-mlc-total.csv"
