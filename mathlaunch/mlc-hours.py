@@ -80,8 +80,12 @@ for id in non_intersection:
 if len(non_ml) > 0:
     print("Non-ML students who logged time in the MLC:")
     for name in sorted(non_ml.keys()):
-        if name in ids_mlc.values():
-            print(name + " (" + str(non_ml[name]) + ")")
+        time = hours[non_ml[name]]
+        if name in ids_mlc.values() and \
+            time > 0:
+            print(name + \
+                " (" + str(non_ml[name]) + "):  " + \
+                str(time) + " min")
 
 # Write output dataframe to csv
 outfile = "wk" + str(wk_mlc).zfill(2) + "-mlc-total.csv"
