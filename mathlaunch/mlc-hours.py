@@ -17,7 +17,7 @@ import numpy as np
 #infile_roster = input("Enter name of Webcourses roster file:  ")
 #infile_mlc = input("Enter name of MLC hours file:  ")
 wk_roster = 4
-wk_mlc = 3
+wk_mlc = 4
 #  Comment out if using user input instead:
 infile_roster = "wk" + str(wk_roster).zfill(2) + "-roster.csv"
 infile_mlc = "wk" + str(wk_mlc).zfill(2) + "-mlc-raw.csv"
@@ -77,10 +77,11 @@ for id in non_intersection:
     non_ml[ids_mlc[id]] = id
 
 # Print list of students who did hours but are not in ML:
-print("Non-ML students who logged time in the MLC:")
-for name in sorted(non_ml.keys()):
-    if name in ids_mlc.values():
-        print(name + " (" + str(non_ml[name]) + ")")
+if len(non_ml) > 0:
+    print("Non-ML students who logged time in the MLC:")
+    for name in sorted(non_ml.keys()):
+        if name in ids_mlc.values():
+            print(name + " (" + str(non_ml[name]) + ")")
 
 # Write output dataframe to csv
 outfile = "wk" + str(wk_mlc).zfill(2) + "-mlc-total.csv"
