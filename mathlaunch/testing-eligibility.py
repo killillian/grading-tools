@@ -98,19 +98,23 @@ comp_failed = "( " + \
 # Use query conditions to make eligibility lists
 #  Students eligible to take Practice Test
 ready_for_prac = grades.query(\
-    akcs_completed)\
+    akcs_completed + \
+    " & ~" + comp_passed + " & ~" + comp_failed)\
     [name].tolist()
 #  Students who only need Modules to be eligible for Comprehensive Test
 needs_mods = grades.query(\
-    prac_taken + " & ~" + mods_completed)\
+    prac_taken + " & ~" + mods_completed + \
+    " & ~" + comp_passed + " & ~" + comp_failed)\
     [name].tolist()
 #  Students who only need Practice Test to be eligible for Comprehensive Test
 needs_prac = grades.query(\
-    mods_completed + " & ~" + prac_taken)\
+    mods_completed + " & ~" + prac_taken + \
+    " & ~" + comp_passed + " & ~" + comp_failed)\
     [name].tolist()
 #  Students eligible to take Comprehensive Test
 ready_for_comp = grades.query(\
-    prac_taken + " & " + mods_completed + " & ~" + comp_passed)\
+    prac_taken + " & " + mods_completed + \
+    " & ~" + comp_passed + " & ~" + comp_failed)\
     [name].tolist()
 #  Students who passed Comprehensive Test
 passed = grades.query(\
