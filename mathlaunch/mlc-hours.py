@@ -16,14 +16,15 @@ import pandas as pd
 #infile_roster = input("Enter name of Webcourses roster file:  ")
 #infile_mlc = input("Enter name of MLC hours file:  ")
 wk_roster = 4
-wk_mlc = 4
+wk_mlc = 6
 #  Comment out if using user input instead:
 infile_roster = "wk" + str(wk_roster).zfill(2) + "-roster.csv"
 infile_mlc = "wk" + str(wk_mlc).zfill(2) + "-mlc-raw.csv"
 
 # Read in files as dataframes
+skips = [0, 1]  # May need to change depending on format of input file  
 roster = pd.read_csv(infile_roster, skiprows=[1])
-mlc = pd.read_csv(infile_mlc)
+mlc = pd.read_csv(infile_mlc, skiprows=skips)
 
 # Drop last row of roster, which contains info for a fake test student
 roster = roster.drop(roster.tail(1).index)
