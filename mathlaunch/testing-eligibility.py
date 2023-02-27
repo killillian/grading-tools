@@ -16,7 +16,7 @@ import re
 #  Uncomment to get user input instead of hard-coding file names:
 #infile = input("Enter name of ALEKS gradebook file:  ")
 #  Comment out if using user input instead:
-infile = "aleks-gradebook_2023-02-24.xlsx"
+infile = "aleks-gradebook_2023-02-27.xlsx"
 
 # Read in file as dataframes
 grades = pd.read_excel(infile, skiprows=[1])
@@ -108,7 +108,7 @@ needs_mods = grades.query(\
     [name].tolist()
 #  Students who only need Practice Test to be eligible for Comprehensive Test
 needs_prac = grades.query(\
-    mods_completed + " & ~" + prac_taken + \
+    akcs_completed + " & " + mods_completed + " & ~" + prac_taken + \
     " & ~" + comp_passed + " & ~" + comp_failed)\
     [name].tolist()
 #  Students eligible to take Comprehensive Test
